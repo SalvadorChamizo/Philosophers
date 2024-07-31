@@ -6,7 +6,7 @@
 /*   By: schamizo <schamizo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 14:38:06 by schamizo          #+#    #+#             */
-/*   Updated: 2024/07/17 14:42:09 by schamizo         ###   ########.fr       */
+/*   Updated: 2024/07/20 16:09:16 by schamizo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,14 @@ int	ft_str_isdigit(char *str)
 	int	flag;
 
 	i = 0;
-	flag = 1;
+	flag = 0;
 	if (str[i] && (str[i] == '-' || str[i] == '+'))
 		i++;
 	while (str[i])
 	{
+		flag = 1;
 		if (!ft_isdigit(str[i]))
-			flag = 0;
+			return (0);
 		i++;
 	}
 	return (flag);
@@ -74,6 +75,9 @@ int	*build_array(int argc, char **argv)
 	args = malloc(sizeof(int *) * (argc - 1));
 	if (!args)
 		return (0);
+	while (j < argc)
+		args[j++] = 0;
+	j = 0;
 	while (i < argc)
 	{
 		args[j] = ft_atoi(argv[i]);

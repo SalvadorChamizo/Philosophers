@@ -16,8 +16,20 @@ RED     = \033[31;1m
 FILES =	main \
 		check_args \
 		check_args_utils \
+		init_table \
+		init_table_aux \
+		routine \
+		routine_actions \
+		check_mutexes \
+		set_mutexes \
+		monitor \
+		start_dinner \
+		finish_dinner \
+		times \
+		free_memory \
 
-#BNS_FILES = 
+$(shell mkdir -p ./src/obj)
+$(shell mkdir -p ./src/obj/charge_flag_makefile)
 
 SRCS_DIR = ./src/
 OBJS_DIR = ./src/obj/
@@ -36,7 +48,8 @@ $(OBJS_DIR)%.o: $(SRCS_DIR)%.c
 all: $(NAME)
 
 $(NAME): $(OBJS) $(OBJS_DIR)/charge_flag_makefile/charge.flag
-	@$(CC) $(OBJS) $(FLAGS) -o $(NAME)
+	@$(CC) $(OBJS) $(FLAGS) -lpthread -o $(NAME)
+	@echo
 	@echo "$(MAGENTA)philo compiled!$(RESET)"
 	@echo
 
@@ -50,27 +63,31 @@ $(OBJS_DIR)/charge_flag_makefile/charge.flag:
 	@echo
 	@echo -n "$(GREEN)Compiling: $(RESET)["
 	@for i in $$(seq 1 2); do \
-		echo -n "#"; \
+		echo -n "##"; \
 		sleep 0.20; \
 	done
 	@for i in $$(seq 1 6); do \
-		echo -n "###"; \
+		echo -n "####"; \
 		sleep 0.10; \
 	done
 	@echo "] $(GREEN)Done!$(RESET)"
-	@echo
 	@touch $(OBJS_DIR)/charge_flag_makefile/charge.flag
 
 clean: 
 	@rm -f $(OBJS) $(BNS_OBJS) $(OBJS_DIR)/charge_flag_makefile/charge.flag
 	@echo
 	@echo "$(RED)Cleaning philo objects. $(RESET)"
+	$(shell rm -rf ./src/obj)
 
 fclean: clean
 	@rm -f $(NAME) $(NAME_BNS)
 	@echo "$(RED)Cleaning philo executables.$(RESET)"
 	@echo
 
-re: fclean all
+re: fclean setup $(NAME)
+
+setup:
+	$(shell mkdir -p ./src/obj)
+	$(shell mkdir -p ./src/obj/charge_flag_makefile)
 
 .PHONY = all clean fclean re bonus charge

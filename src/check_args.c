@@ -6,7 +6,7 @@
 /*   By: schamizo <schamizo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 14:38:08 by schamizo          #+#    #+#             */
-/*   Updated: 2024/07/17 14:40:39 by schamizo         ###   ########.fr       */
+/*   Updated: 2024/07/20 16:09:45 by schamizo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,6 @@ int	check_times(int *args)
 			printf("Error in \"%d\": Times must be positives\n", args[i]);
 			return (0);
 		}
-		printf("%d\n", args[i]);
 		i++;
 	}
 	return (1);
@@ -77,6 +76,7 @@ int	check_args(int argc, char **argv)
 	int	*args;
 	int	i;
 
+	args = NULL;
 	i = 1;
 	args = build_array(argc, argv);
 	if (args == 0)
@@ -92,5 +92,6 @@ int	check_args(int argc, char **argv)
 		if (!check_eat_times(args))
 			return (0);
 	}
+	free(args);
 	return (1);
 }

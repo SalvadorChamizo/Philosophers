@@ -1,39 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   finish_dinner.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: schamizo <schamizo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/17 11:40:31 by schamizo          #+#    #+#             */
-/*   Updated: 2024/07/31 11:46:17 by schamizo         ###   ########.fr       */
+/*   Created: 2024/07/30 16:35:14 by schamizo          #+#    #+#             */
+/*   Updated: 2024/07/30 18:56:38 by schamizo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philo.h"
 
-int	main(int argc, char **argv)
+void	ft_wait_monitor(t_table *table)
 {
-	t_table	*table;
+	int	ret;
 
-	if (argc == 5 || argc == 6)
+	ret = pthread_join(table->monitor, NULL);
+	if (ret != 0)
+		printf("Error in pthread_join\n");
+}
+
+void	ft_wait_philos(t_table *table)
+{
+	int	i;
+
+	i = 0;
+	while (i < table->philo_num)
 	{
-		if (!check_args(argc, argv))
-			return (1);
-		table = init_table(argc, argv);
-		if (!table)
-			return (1);
-		start_dinner(table);
-		finish_dinner(table);
-		destroy_mutex(table);
-		free(table->forks);
-		free(table->philos);
-		free(table);
+		pthread_join(table->philos[i].philo, NULL);
+		i++;
 	}
-	else
-	{
-		printf("Error: Incorrect number of arguments\n");
-		return (1);
-	}
-	return (0);
+}
+
+void	finish_dinner(t_table *table)
+{
+	ft_wait_monitor(table);
+	ft_wait_philos(table);
 }
