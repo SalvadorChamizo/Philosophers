@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   set_mutexes.c                                      :+:      :+:    :+:   */
+/*   mutexes_set.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: schamizo <schamizo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/31 12:24:42 by schamizo          #+#    #+#             */
-/*   Updated: 2024/07/31 12:25:25 by schamizo         ###   ########.fr       */
+/*   Updated: 2024/07/31 13:57:16 by schamizo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	set_last_eat_time(t_philo *philo, long new_time)
 	if (pthread_mutex_lock(&philo->time_since_eat) != 0)
 		return ;
 	philo->time_from_eat = new_time;
-	if (pthread_mutex_lock(&philo->time_since_eat) != 0)
+	if (pthread_mutex_unlock(&philo->time_since_eat) != 0)
 		return ;
 }
 

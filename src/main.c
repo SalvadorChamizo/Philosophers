@@ -6,7 +6,7 @@
 /*   By: schamizo <schamizo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 11:40:31 by schamizo          #+#    #+#             */
-/*   Updated: 2024/07/31 11:46:17 by schamizo         ###   ########.fr       */
+/*   Updated: 2024/07/31 16:45:18 by schamizo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	main(int argc, char **argv)
 	}
 	else
 	{
-		printf("Error: Incorrect number of arguments\n");
+		printf(RED"Error:"RESET" Incorrect number of arguments\n");
 		return (1);
 	}
 	return (0);

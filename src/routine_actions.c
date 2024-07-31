@@ -6,7 +6,7 @@
 /*   By: schamizo <schamizo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/31 12:32:31 by schamizo          #+#    #+#             */
-/*   Updated: 2024/07/31 12:33:36 by schamizo         ###   ########.fr       */
+/*   Updated: 2024/07/31 16:43:23 by schamizo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	ft_printing(t_philo *philo, t_action_philo action)
 {
 	long	time;
 
-	time = philo->time_from_eat;
+	time = get_time_milli() - check_init_time(philo->table);
 	if (pthread_mutex_lock(&philo->table->write) != 0)
 		return (0);
 	if (check_finish_dinner(philo->table) && action != DIE)
@@ -26,15 +26,15 @@ int	ft_printing(t_philo *philo, t_action_philo action)
 		return (0);
 	}
 	if (action == FORK)
-		printf("%ld %d %s\n", time, philo->philo_id, TAKE_FORKS);
+		printf(YELLOW"%ld"RESET" %d %s\n", time, philo->philo_id, TAKE_FORKS);
 	if (action == EAT)
-		printf("%ld %d %s\n", time, philo->philo_id, EATING);
+		printf(YELLOW"%ld"RESET" %d %s\n", time, philo->philo_id, EATING);
 	if (action == SLEEP)
-		printf("%ld %d %s\n", time, philo->philo_id, SLEEPING);
+		printf(YELLOW"%ld"RESET" %d %s\n", time, philo->philo_id, SLEEPING);
 	if (action == THINK)
-		printf("%ld %d %s\n", time, philo->philo_id, THINKING);
+		printf(YELLOW"%ld"RESET" %d %s\n", time, philo->philo_id, THINKING);
 	if (action == DIE)
-		printf("%ld %d %s\n", time, philo->philo_id, DIED);
+		printf(YELLOW"%ld"RESET" %d %s\n", time, philo->philo_id, DIED);
 	if (pthread_mutex_unlock(&philo->table->write) != 0)
 		return (0);
 	return (1);
@@ -50,6 +50,8 @@ int	ft_waiting(t_philo *philo)
 			return (1);
 		return (1);
 	}
+	if (one_philo_case(philo))
+		return (1);
 	if (pthread_mutex_lock(philo->l_fork) != 0)
 	{
 		if (pthread_mutex_unlock(philo->r_fork) != 0)
@@ -73,7 +75,7 @@ int	ft_eating(t_philo *philo)
 
 	new_time = get_time_milli();
 	set_last_eat_time(philo, new_time);
-	if (!ft_printing(philo, EAT))
+	if (check_finish_dinner(philo->table) || !ft_printing(philo, EAT))
 	{
 		if (pthread_mutex_unlock(philo->l_fork) != 0)
 			return (1);
@@ -82,8 +84,7 @@ int	ft_eating(t_philo *philo)
 		return (1);
 	}
 	increase_eat_cont(philo);
-	if (ft_usleep(philo->table, philo->table->time_to_eat * 1000))
-		return (1);
+	ft_usleep(philo->table, philo->table->time_to_eat * 1000);
 	if (pthread_mutex_unlock(philo->l_fork) != 0)
 		return (1);
 	if (pthread_mutex_unlock(philo->r_fork) != 0)
@@ -104,7 +105,7 @@ int	ft_thinking(t_philo *philo)
 {
 	long	time_to_think;
 
-	if (!ft_printing(philo, THINK))
+	if (check_finish_dinner(philo->table) || !ft_printing(philo, THINK))
 		return (1);
 	if (philo->table->philo_num % 2 == 0)
 		return (0);

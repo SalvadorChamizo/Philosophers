@@ -6,7 +6,7 @@
 /*   By: schamizo <schamizo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 17:26:11 by schamizo          #+#    #+#             */
-/*   Updated: 2024/07/31 12:37:11 by schamizo         ###   ########.fr       */
+/*   Updated: 2024/07/31 13:53:57 by schamizo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,10 @@ int	start_dinner(t_table *table)
 {
 	int	ret;
 
+	ret = 0;
 	start_philos(table);
 	set_philo_status(table);
-	ret = pthread_create(&table->monitor, NULL, &ft_monitor, &table);
+	ret = pthread_create(&table->monitor, NULL, &ft_monitor, table);
 	if (ret != 0)
 	{
 		printf("Error: Failed to create philo thread\n");

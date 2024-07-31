@@ -6,7 +6,7 @@
 /*   By: schamizo <schamizo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 12:29:10 by schamizo          #+#    #+#             */
-/*   Updated: 2024/07/31 12:03:50 by schamizo         ###   ########.fr       */
+/*   Updated: 2024/07/31 14:01:47 by schamizo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,22 +86,6 @@ int	init_mutex(t_table *table)
 	}
 	init_philo_mutex(table);
 	return (1);
-}
-
-long	get_time(void)
-{
-	struct timeval	tv;
-	long			seconds_since_unix_epoch;
-	long			this_second_microseconds;
-
-	if (gettimeofday(&tv, NULL) == -1)
-	{
-		printf("Error in gettimeofday()\n");
-		return (0);
-	}
-	seconds_since_unix_epoch = tv.tv_sec * 1000;
-	this_second_microseconds = tv.tv_usec / 1000;
-	return (seconds_since_unix_epoch + this_second_microseconds);
 }
 
 void	init_philos(t_table *table)

@@ -6,7 +6,7 @@
 /*   By: schamizo <schamizo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 14:38:08 by schamizo          #+#    #+#             */
-/*   Updated: 2024/07/20 16:09:45 by schamizo         ###   ########.fr       */
+/*   Updated: 2024/07/31 16:54:31 by schamizo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,30 +15,35 @@
 int	check_digits(int argc, char **argv)
 {
 	int	i;
+	int	flag;
 
 	i = 1;
+	flag = 1;
 	while (i < argc)
 	{
 		if (!ft_str_isdigit(argv[i]))
 		{
-			printf("Error in \"%s\": Arguments must be numeric\n", argv[i]);
-			return (0);
+			printf(RED"Error in "RESET"\"%s\""RED": "RESET"", argv[i]);
+			printf("Arguments must be numeric\n");
+			flag = 0;
 		}
 		i++;
 	}
-	return (1);
+	return (flag);
 }
 
 int	check_num_philos(int *args)
 {
 	if (args[0] > 250)
 	{
-		printf("Error in \"%d\": Too many philosophers\n", args[0]);
+		printf(RED"Error in "RESET"\"%d\""RED": "RESET"", args[0]);
+		printf("Too many philosophers\n");
 		return (0);
 	}
 	if (args[0] <= 0)
 	{
-		printf("Error in \"%d\": Not enough philosophers\n", args[0]);
+		printf(RED"Error in "RESET"\"%d\""RED": "RESET"", args[0]);
+		printf("Not enough philosophers\n");
 		return (0);
 	}
 	return (1);
@@ -47,25 +52,29 @@ int	check_num_philos(int *args)
 int	check_times(int *args)
 {
 	int	i;
+	int	flag;
 
 	i = 1;
+	flag = 1;
 	while (args[i] && i < 4)
 	{
 		if (args[i] < 0)
 		{
-			printf("Error in \"%d\": Times must be positives\n", args[i]);
-			return (0);
+			printf(RED"Error in "RESET"\"%d\""RED": "RESET"", args[i]);
+			printf("Not enough philosophers\n");
+			flag = 0;
 		}
 		i++;
 	}
-	return (1);
+	return (flag);
 }
 
 int	check_eat_times(int *args)
 {
 	if (args[4] < 0)
 	{
-		printf("Error in \"%d\": They have to eat at least 0 times\n", args[4]);
+		printf(RED"Error in "RESET"\"%d\""RED": "RESET"", args[4]);
+		printf("They have to eat at least 0 times\n");
 		return (0);
 	}
 	return (1);
@@ -75,23 +84,25 @@ int	check_args(int argc, char **argv)
 {
 	int	*args;
 	int	i;
+	int	flag;
 
 	args = NULL;
 	i = 1;
+	flag = 1;
 	args = build_array(argc, argv);
-	if (args == 0)
+	if (args == NULL)
 		return (0);
 	if (!check_digits(argc, argv))
-		return (0);
+		flag = 0;
 	if (!check_num_philos(args))
-		return (0);
+		flag = 0;
 	if (!check_times(args))
-		return (0);
+		flag = 0;
 	if (argc == 6)
 	{
 		if (!check_eat_times(args))
-			return (0);
+			flag = 0;
 	}
 	free(args);
-	return (1);
+	return (flag);
 }

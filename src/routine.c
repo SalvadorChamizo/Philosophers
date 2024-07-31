@@ -6,18 +6,31 @@
 /*   By: schamizo <schamizo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 18:34:22 by schamizo          #+#    #+#             */
-/*   Updated: 2024/07/31 12:33:45 by schamizo         ###   ########.fr       */
+/*   Updated: 2024/07/31 15:49:06 by schamizo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philo.h"
+
+int	one_philo_case(t_philo *philo)
+{
+	if (philo->table->philo_num == 1)
+	{
+		while (!check_finish_dinner(philo->table))
+			;
+		if (pthread_mutex_unlock(philo->r_fork) != 0)
+			return (1);
+		return (1);
+	}
+	return (0);
+}
 
 void	increase_eat_cont(t_philo *philo)
 {
 	if (pthread_mutex_lock(&philo->eat_cont_mutex) != 0)
 		return ;
 	philo->eat_cont++;
-	if (pthread_mutex_lock(&philo->eat_cont_mutex) != 0)
+	if (pthread_mutex_unlock(&philo->eat_cont_mutex) != 0)
 		return ;
 }
 

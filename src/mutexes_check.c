@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_mutexes.c                                    :+:      :+:    :+:   */
+/*   mutexes_check.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: schamizo <schamizo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/31 12:22:24 by schamizo          #+#    #+#             */
-/*   Updated: 2024/07/31 12:24:09 by schamizo         ###   ########.fr       */
+/*   Updated: 2024/07/31 13:58:59 by schamizo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ long	check_last_eat(t_philo *philo)
 	if (pthread_mutex_lock(&philo->time_since_eat) != 0)
 		return (0);
 	last_eat_time = philo->time_from_eat;
-	if (pthread_mutex_lock(&philo->time_since_eat) != 0)
+	if (pthread_mutex_unlock(&philo->time_since_eat) != 0)
 		return (0);
 	return (last_eat_time);
 }

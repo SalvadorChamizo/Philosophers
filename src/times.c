@@ -6,7 +6,7 @@
 /*   By: schamizo <schamizo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 12:52:46 by schamizo          #+#    #+#             */
-/*   Updated: 2024/07/31 12:37:40 by schamizo         ###   ########.fr       */
+/*   Updated: 2024/07/31 13:57:00 by schamizo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,8 @@ void	set_initial_time(t_table *table)
 {
 	if (pthread_mutex_lock(&table->init_time) != 0)
 		return ;
-	table->initial_time = get_time_micro();
-	if (pthread_mutex_lock(&table->init_time) != 0)
+	table->initial_time = get_time_milli();
+	if (pthread_mutex_unlock(&table->init_time) != 0)
 		return ;
 }
 

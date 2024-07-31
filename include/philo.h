@@ -6,12 +6,25 @@
 /*   By: schamizo <schamizo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 12:08:50 by schamizo          #+#    #+#             */
-/*   Updated: 2024/07/31 12:36:20 by schamizo         ###   ########.fr       */
+/*   Updated: 2024/07/31 16:41:27 by schamizo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PHILO_H
 # define PHILO_H
+
+# define RED		"\x1b[31m"
+# define GREEN		"\x1b[32m"
+# define YELLOW		"\x1b[33m"
+# define BLUE		"\x1b[34m"
+# define MAGENTA	"\x1b[35m"
+# define CYAN		"\x1b[36m"
+# define WHITE		"\033[37m"
+# define GREYM		"\x1B[38;5;245m"
+# define GREYM2		"\x1B[38;5;250m"
+# define BOLD		"\033[1m"
+# define RESET		"\x1b[0m"
+# define CLEAR		"\033[2J"
 
 # include <unistd.h>
 # include <stdio.h>
@@ -20,11 +33,11 @@
 # include <pthread.h>
 # include <sys/time.h>
 
-# define TAKE_FORKS "has taken a fork."
-# define THINKING "is thinking."
-# define SLEEPING "is sleeping."
-# define EATING "is eating."
-# define DIED "died."
+# define TAKE_FORKS "has taken a fork"
+# define THINKING "is thinking"
+# define SLEEPING "is sleeping"
+# define EATING "is eating"
+# define DIED "died"
 
 typedef enum e_action_philo
 {
@@ -96,6 +109,7 @@ int		start_dinner(t_table *table);
 
 void	*ft_routine(void *philosopher);
 void	increase_eat_cont(t_philo *philo);
+int		one_philo_case(t_philo *philo);
 
 // routine_actions
 

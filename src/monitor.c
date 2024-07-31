@@ -6,7 +6,7 @@
 /*   By: schamizo <schamizo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 12:43:27 by schamizo          #+#    #+#             */
-/*   Updated: 2024/07/30 18:55:58 by schamizo         ###   ########.fr       */
+/*   Updated: 2024/07/31 14:23:24 by schamizo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,14 @@
 int	check_death(t_philo *philo)
 {
 	long	last_eat_time;
+	long	current_time;
 	long	elapsed;
 
+	if (!check_last_eat(philo))
+		return (0);
 	last_eat_time = check_last_eat(philo);
-	elapsed = (get_time_micro() - last_eat_time) / 1000;
+	current_time = get_time_milli();
+	elapsed = (current_time - last_eat_time);
 	if (elapsed > philo->table->time_to_die)
 	{
 		set_finish_dinner(philo->table);

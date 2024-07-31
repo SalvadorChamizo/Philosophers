@@ -20,8 +20,8 @@ FILES =	main \
 		init_table_aux \
 		routine \
 		routine_actions \
-		check_mutexes \
-		set_mutexes \
+		mutexes_check \
+		mutexes_set \
 		monitor \
 		start_dinner \
 		finish_dinner \
