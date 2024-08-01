@@ -6,7 +6,7 @@
 /*   By: schamizo <schamizo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/31 12:32:31 by schamizo          #+#    #+#             */
-/*   Updated: 2024/07/31 16:43:23 by schamizo         ###   ########.fr       */
+/*   Updated: 2024/08/01 12:02:09 by schamizo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,21 +26,21 @@ int	ft_printing(t_philo *philo, t_action_philo action)
 		return (0);
 	}
 	if (action == FORK)
-		printf(YELLOW"%ld"RESET" %d %s\n", time, philo->philo_id, TAKE_FORKS);
+		printf("%ld %d %s\n", time, philo->philo_id, TAKE_FORKS);
 	if (action == EAT)
-		printf(YELLOW"%ld"RESET" %d %s\n", time, philo->philo_id, EATING);
+		printf("%ld %d %s\n", time, philo->philo_id, EATING);
 	if (action == SLEEP)
-		printf(YELLOW"%ld"RESET" %d %s\n", time, philo->philo_id, SLEEPING);
+		printf("%ld %d %s\n", time, philo->philo_id, SLEEPING);
 	if (action == THINK)
-		printf(YELLOW"%ld"RESET" %d %s\n", time, philo->philo_id, THINKING);
+		printf("%ld %d %s\n", time, philo->philo_id, THINKING);
 	if (action == DIE)
-		printf(YELLOW"%ld"RESET" %d %s\n", time, philo->philo_id, DIED);
+		printf("%ld %d %s\n", time, philo->philo_id, DIED);
 	if (pthread_mutex_unlock(&philo->table->write) != 0)
 		return (0);
 	return (1);
 }
 
-int	ft_waiting(t_philo *philo)
+int	ft_take_forks(t_philo *philo)
 {
 	if (pthread_mutex_lock(philo->r_fork) != 0)
 		return (1);
@@ -112,7 +112,7 @@ int	ft_thinking(t_philo *philo)
 	time_to_think = philo->table->time_to_eat * 2 - philo->table->time_to_sleep;
 	if (time_to_think < 0)
 		time_to_think = 0;
-	if (ft_usleep(philo->table, time_to_think * 1000))
+	if (ft_usleep(philo->table, time_to_think * 1000 / 2))
 		return (1);
 	return (0);
 }

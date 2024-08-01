@@ -6,7 +6,7 @@
 /*   By: schamizo <schamizo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 12:29:10 by schamizo          #+#    #+#             */
-/*   Updated: 2024/07/31 14:01:47 by schamizo         ###   ########.fr       */
+/*   Updated: 2024/08/01 11:46:24 by schamizo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,16 +98,8 @@ void	init_philos(t_table *table)
 	while (i < table->philo_num)
 	{
 		table->philos[i].philo_id = i + 1;
-		if (table->philos[i].philo_id % 2 == 0)
-		{
-			table->philos[i].r_fork = &table->forks[i];
-			table->philos[i].l_fork = &table->forks[(i + 1) % philo_num];
-		}
-		else
-		{
-			table->philos[i].r_fork = &table->forks[(i + 1) % philo_num];
-			table->philos[i].l_fork = &table->forks[i];
-		}
+		table->philos[i].l_fork = &table->forks[i];
+		table->philos[i].r_fork = &table->forks[(i + 1) % philo_num];
 		table->philos[i].time_from_eat = 0;
 		table->philos[i].eat_cont = 0;
 		table->philos[i].table = table;

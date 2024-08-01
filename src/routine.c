@@ -6,7 +6,7 @@
 /*   By: schamizo <schamizo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 18:34:22 by schamizo          #+#    #+#             */
-/*   Updated: 2024/07/31 15:49:06 by schamizo         ###   ########.fr       */
+/*   Updated: 2024/08/01 11:47:15 by schamizo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	*ft_routine(void *philosopher)
 	set_last_eat_time(philo, check_init_time(philo->table));
 	while (!check_finish_dinner(philo->table))
 	{
-		if (ft_waiting(philo))
+		if (ft_take_forks(philo))
 			break ;
 		if (ft_eating(philo))
 			break ;

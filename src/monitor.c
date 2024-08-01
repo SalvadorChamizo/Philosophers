@@ -6,7 +6,7 @@
 /*   By: schamizo <schamizo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 12:43:27 by schamizo          #+#    #+#             */
-/*   Updated: 2024/07/31 14:23:24 by schamizo         ###   ########.fr       */
+/*   Updated: 2024/08/01 12:10:07 by schamizo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,16 @@ int	check_full_philos(t_philo *philo)
 	return (0);
 }
 
+void	full_finish(t_table *table, int full_philos)
+{
+	ft_usleep(table, 100);
+	if (full_philos == table->philo_num)
+	{
+		set_finish_dinner(table);
+		printf(GREEN"All philos are full\n"RESET);
+	}
+}
+
 void	*ft_monitor(void *table_dinner)
 {
 	t_table	*table;
@@ -66,8 +76,7 @@ void	*ft_monitor(void *table_dinner)
 				full_cont++;
 			i++;
 		}
-		if (full_cont == table->philo_num)
-			set_finish_dinner(table);
+		full_finish(table, full_cont);
 	}
 	return (NULL);
 }

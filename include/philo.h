@@ -6,7 +6,7 @@
 /*   By: schamizo <schamizo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 12:08:50 by schamizo          #+#    #+#             */
-/*   Updated: 2024/07/31 16:41:27 by schamizo         ###   ########.fr       */
+/*   Updated: 2024/08/01 12:10:54 by schamizo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,7 @@ typedef struct s_table
 // free_memory
 
 void	destroy_mutex(t_table *table);
+void	free_table(t_table *table);
 
 // init_table
 
@@ -104,6 +105,7 @@ int		safe_mutex_init_2(t_table *table);
 //start_dinner
 
 int		start_dinner(t_table *table);
+void	start_philos(t_table *table);
 
 // routine
 
@@ -114,7 +116,7 @@ int		one_philo_case(t_philo *philo);
 // routine_actions
 
 int		ft_printing(t_philo *philo, t_action_philo action);
-int		ft_waiting(t_philo *philo);
+int		ft_take_forks(t_philo *philo);
 int		ft_eating(t_philo *philo);
 int		ft_sleeping(t_philo *philo);
 int		ft_thinking(t_philo *philo);
@@ -142,6 +144,9 @@ int		ft_usleep(t_table *table, long sleep_time);
 // monitor
 
 void	*ft_monitor(void *table_dinner);
+int		check_death(t_philo *philo);
+int		check_full_philos(t_philo *philo);
+void	full_finish(t_table *table, int full_philos);
 
 // finish_dinner
 

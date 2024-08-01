@@ -6,7 +6,7 @@
 /*   By: schamizo <schamizo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 11:40:31 by schamizo          #+#    #+#             */
-/*   Updated: 2024/07/31 16:45:18 by schamizo         ###   ########.fr       */
+/*   Updated: 2024/07/31 18:32:54 by schamizo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,7 @@ int	main(int argc, char **argv)
 		start_dinner(table);
 		finish_dinner(table);
 		destroy_mutex(table);
-		free(table->forks);
-		free(table->philos);
-		free(table);
+		free_table(table);
 	}
 	else
 	{

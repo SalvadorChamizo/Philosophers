@@ -6,7 +6,7 @@
 /*   By: schamizo <schamizo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 15:58:41 by schamizo          #+#    #+#             */
-/*   Updated: 2024/07/31 11:45:28 by schamizo         ###   ########.fr       */
+/*   Updated: 2024/07/31 18:32:32 by schamizo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,4 +29,11 @@ void	destroy_mutex(t_table *table)
 		pthread_mutex_destroy(&table->philos[i].time_since_eat);
 		i++;
 	}
+}
+
+void	free_table(t_table *table)
+{
+	free(table->forks);
+	free(table->philos);
+	free(table);
 }
