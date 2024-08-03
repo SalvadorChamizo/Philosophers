@@ -6,7 +6,7 @@
 /*   By: schamizo <schamizo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 12:29:10 by schamizo          #+#    #+#             */
-/*   Updated: 2024/08/01 11:46:24 by schamizo         ###   ########.fr       */
+/*   Updated: 2024/08/02 19:03:59 by schamizo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,14 @@ t_table	*init_table(int argc, char **argv)
 	table->forks = malloc(sizeof(pthread_mutex_t) * args[0]);
 	if (!table->forks)
 	{
+		free(args);
 		free(table);
 		return (NULL);
 	}
 	table->philos = malloc(sizeof(t_philo) * args[0]);
 	if (!table->philos)
 	{
+		free(args);
 		free(table->forks);
 		free(table);
 		return (NULL);
@@ -100,6 +102,11 @@ void	init_philos(t_table *table)
 		table->philos[i].philo_id = i + 1;
 		table->philos[i].l_fork = &table->forks[i];
 		table->philos[i].r_fork = &table->forks[(i + 1) % philo_num];
+		if (table->philos[i].philo_id % 2 == 0)
+		{
+			table->philos[i].r_fork = &table->forks[i];
+			table->philos[i].l_fork = &table->forks[(i + 1) % philo_num];
+		}
 		table->philos[i].time_from_eat = 0;
 		table->philos[i].eat_cont = 0;
 		table->philos[i].table = table;

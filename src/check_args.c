@@ -6,7 +6,7 @@
 /*   By: schamizo <schamizo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 14:38:08 by schamizo          #+#    #+#             */
-/*   Updated: 2024/07/31 16:54:31 by schamizo         ###   ########.fr       */
+/*   Updated: 2024/08/01 12:56:24 by schamizo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int	check_times(int *args)
 
 	i = 1;
 	flag = 1;
-	while (args[i] && i < 4)
+	while (i < 4)
 	{
 		if (args[i] < 0)
 		{

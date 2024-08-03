@@ -6,7 +6,7 @@
 /*   By: schamizo <schamizo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/31 12:32:31 by schamizo          #+#    #+#             */
-/*   Updated: 2024/08/01 12:02:09 by schamizo         ###   ########.fr       */
+/*   Updated: 2024/08/02 19:10:01 by schamizo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,9 @@ int	ft_printing(t_philo *philo, t_action_philo action)
 {
 	long	time;
 
-	time = get_time_milli() - check_init_time(philo->table);
 	if (pthread_mutex_lock(&philo->table->write) != 0)
 		return (0);
+	time = get_time_milli() - check_init_time(philo->table);
 	if (check_finish_dinner(philo->table) && action != DIE)
 	{
 		if (pthread_mutex_unlock(&philo->table->write) != 0)
@@ -83,18 +83,25 @@ int	ft_eating(t_philo *philo)
 			return (1);
 		return (1);
 	}
-	increase_eat_cont(philo);
+	if (philo->table->must_eat != -1)
+		increase_eat_cont(philo);
 	ft_usleep(philo->table, philo->table->time_to_eat * 1000);
-	if (pthread_mutex_unlock(philo->l_fork) != 0)
-		return (1);
-	if (pthread_mutex_unlock(philo->r_fork) != 0)
-		return (1);
 	return (0);
 }
 
 int	ft_sleeping(t_philo *philo)
 {
-	if (!ft_printing(philo, SLEEP))
+	if (check_finish_dinner(philo->table) || !ft_printing(philo, SLEEP))
+	{
+		if (pthread_mutex_unlock(philo->l_fork) != 0)
+			return (1);
+		if (pthread_mutex_unlock(philo->r_fork) != 0)
+			return (1);
+		return (1);
+	}
+	if (pthread_mutex_unlock(philo->l_fork) != 0)
+		return (1);
+	if (pthread_mutex_unlock(philo->r_fork) != 0)
 		return (1);
 	if (ft_usleep(philo->table, philo->table->time_to_sleep * 1000))
 		return (1);
