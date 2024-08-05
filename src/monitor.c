@@ -6,7 +6,7 @@
 /*   By: schamizo <schamizo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 12:43:27 by schamizo          #+#    #+#             */
-/*   Updated: 2024/08/01 12:10:07 by schamizo         ###   ########.fr       */
+/*   Updated: 2024/08/05 11:36:22 by schamizo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,17 @@ void	full_finish(t_table *table, int full_philos)
 	if (full_philos == table->philo_num)
 	{
 		set_finish_dinner(table);
+		pthread_mutex_lock(&table->write);
 		printf(GREEN"All philos are full\n"RESET);
+		pthread_mutex_unlock(&table->write);
 	}
+}
+
+void	one_philo_monitor(t_table *table)
+{
+	ft_usleep(table, (table->time_to_die - 10.1) * 1000);
+	set_finish_dinner(table);
+	ft_printing(&table->philos[0], DIE);
 }
 
 void	*ft_monitor(void *table_dinner)
@@ -64,6 +73,8 @@ void	*ft_monitor(void *table_dinner)
 
 	table = (t_table *)table_dinner;
 	set_initial_time(table);
+	if (table->philo_num == 1)
+		one_philo_monitor(table);
 	while (!check_finish_dinner(table))
 	{
 		i = 0;

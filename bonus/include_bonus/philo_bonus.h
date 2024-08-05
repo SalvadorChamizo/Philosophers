@@ -6,7 +6,7 @@
 /*   By: schamizo <schamizo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 12:08:50 by schamizo          #+#    #+#             */
-/*   Updated: 2024/08/03 12:35:29 by schamizo         ###   ########.fr       */
+/*   Updated: 2024/08/05 11:17:19 by schamizo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,7 +146,7 @@ int		ft_usleep(t_philo *philo, long sleep_time);
 
 // monitor
 
-void	*ft_monitor(void *table_dinner);
+void	*ft_monitor(void *philo);
 int		check_death(t_philo *philo);
 int		check_full_philos(t_philo *philo);
 void	full_finish(t_table *table, int full_philos);

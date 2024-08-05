@@ -6,7 +6,7 @@
 /*   By: schamizo <schamizo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 12:29:10 by schamizo          #+#    #+#             */
-/*   Updated: 2024/08/02 19:03:59 by schamizo         ###   ########.fr       */
+/*   Updated: 2024/08/05 12:11:45 by schamizo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,13 @@ t_table	*init_table(int argc, char **argv)
 		free(table);
 		return (NULL);
 	}
+	init_table_aux(table, args, argc);
+	free(args);
+	return (table);
+}
+
+void	init_table_aux(t_table *table, int *args, int argc)
+{
 	table->philos = malloc(sizeof(t_philo) * args[0]);
 	if (!table->philos)
 	{
@@ -40,13 +47,6 @@ t_table	*init_table(int argc, char **argv)
 		free(table);
 		return (NULL);
 	}
-	init_table_aux(table, args, argc);
-	free(args);
-	return (table);
-}
-
-void	init_table_aux(t_table *table, int *args, int argc)
-{
 	table->philo_num = args[0];
 	table->time_to_die = args[1];
 	table->time_to_eat = args[2];

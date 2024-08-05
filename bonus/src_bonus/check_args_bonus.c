@@ -6,7 +6,7 @@
 /*   By: schamizo <schamizo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 14:38:08 by schamizo          #+#    #+#             */
-/*   Updated: 2024/08/01 14:40:45 by schamizo         ###   ########.fr       */
+/*   Updated: 2024/08/05 11:38:22 by schamizo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ int	check_times(int *args)
 		if (args[i] < 0)
 		{
 			printf(RED"Error in "RESET"\"%d\""RED": "RESET"", args[i]);
-			printf("Not enough philosophers\n");
+			printf("Times must be positive\n");
 			flag = 0;
 		}
 		i++;

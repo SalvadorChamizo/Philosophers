@@ -6,7 +6,7 @@
 /*   By: schamizo <schamizo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 18:34:22 by schamizo          #+#    #+#             */
-/*   Updated: 2024/08/01 11:47:15 by schamizo         ###   ########.fr       */
+/*   Updated: 2024/08/05 11:08:59 by schamizo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	*ft_routine(void *philosopher)
 		;
 	while (!check_init_time(philo->table))
 		;
-	if (philo->philo_id % 2 == 0)
+	if (philo->table->philo_num != 1 && philo->philo_id % 2 == 0)
 		ft_usleep(philo->table, 30000);
 	set_last_eat_time(philo, check_init_time(philo->table));
 	while (!check_finish_dinner(philo->table))
