@@ -6,7 +6,7 @@
 /*   By: schamizo <schamizo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 12:29:10 by schamizo          #+#    #+#             */
-/*   Updated: 2024/08/03 18:52:00 by schamizo         ###   ########.fr       */
+/*   Updated: 2024/08/05 17:12:35 by schamizo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,14 @@ t_table	*init_table(int argc, char **argv)
 		return (NULL);
 	table = malloc(sizeof(t_table));
 	if (!table)
+	{
+		free(args);
 		return (NULL);
+	}
 	table->philos = malloc(sizeof(t_philo) * args[0]);
 	if (!table->philos)
 	{
-		free(table->forks);
+		free(args);
 		free(table);
 		return (NULL);
 	}

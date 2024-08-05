@@ -6,7 +6,7 @@
 /*   By: schamizo <schamizo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 12:08:50 by schamizo          #+#    #+#             */
-/*   Updated: 2024/08/05 11:17:19 by schamizo         ###   ########.fr       */
+/*   Updated: 2024/08/05 17:36:27 by schamizo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,36 +87,38 @@ typedef struct s_table
 	int				start_meal;
 }	t_table;
 
-// free_memory
+// free_memory_bonus
 
 void	close_semaphores(t_table *table);
 void	free_table(t_table *table);
 
-// init_table
+// init_table_bonus
 
 t_table	*init_table(int argc, char **argv);
 void	init_table_aux(t_table *table, int *args, int argc);
-void	init_semaphores(t_table *table);
 void	init_philos(t_table *table);
+void	init_semaphores(t_table *table);
 
-// init_table_aux
+// init_table_aux_bonus
 
 void	init_philo_mutex(t_table *table);
 int		safe_mutex_init(t_table *table);
 int		safe_mutex_init_2(t_table *table);
 
-//start_dinner
+//start_dinner_bonus
 
 int		start_dinner(t_table *table);
 void	start_philos(t_table *table);
 
-// routine
+// routine_monitor_bonus
 
-int		ft_routine(t_philo *philo);
-void	increase_eat_cont(t_philo *philo);
 int		one_philo_case(t_philo *philo);
+void	one_philo_monitor(t_philo *philo);
+void	check_for_death(t_philo *philo);
+void	*ft_monitor(void *philosopher);
+int		ft_routine(t_philo *philo);
 
-// routine_actions
+// routine_actions_bonus
 
 int		ft_printing(t_philo *philo, t_action_philo action);
 int		ft_take_forks(t_philo *philo);
@@ -124,19 +126,21 @@ int		ft_eating(t_philo *philo);
 int		ft_sleeping(t_philo *philo);
 int		ft_thinking(t_philo *philo);
 
-// check_mutexes
+// sem_check_bonus
 
 int		check_philo_status(t_table *table);
 long	check_last_eat(t_philo *philo);
 int		check_finish_dinner(t_philo *philo);
 int		check_if_full(t_philo *philo);
 
-// set_mutexes
-int		set_philo_status(t_table *table);
-void	set_finish_dinner(t_philo *philo, int flag);
-void	set_last_eat_time(t_philo *philo, long new_time);
+// sem_set_bonus
 
-//times
+void	increase_eat_cont(t_philo *philo);
+int		set_philo_status(t_table *table);
+void	set_last_eat_time(t_philo *philo, long new_time);
+void	set_finish_dinner(t_philo *philo, int flag);
+
+//times_bonus
 
 long	get_time_milli(void);
 long	get_time_micro(void);
@@ -144,18 +148,7 @@ long	check_init_time(t_table *table);
 void	set_initial_time(t_table *table);
 int		ft_usleep(t_philo *philo, long sleep_time);
 
-// monitor
-
-void	*ft_monitor(void *philo);
-int		check_death(t_philo *philo);
-int		check_full_philos(t_philo *philo);
-void	full_finish(t_table *table, int full_philos);
-
-// finish_dinner
-
-void	finish_dinner(t_table *table);
-
-// check_args
+// check_args_bonus
 
 int		check_digits(int argc, char **argv);
 int		check_num_philos(int *args);
@@ -163,7 +156,7 @@ int		check_times(int *args);
 int		check_eat_times(int *args);
 int		check_args(int argc, char **argv);
 
-// check_args_utils
+// check_args_utils_bonus
 
 int		ft_isdigit(int c);
 int		ft_str_isdigit(char *str);
