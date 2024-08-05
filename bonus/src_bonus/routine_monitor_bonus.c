@@ -6,7 +6,7 @@
 /*   By: schamizo <schamizo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 18:34:22 by schamizo          #+#    #+#             */
-/*   Updated: 2024/08/05 12:10:00 by schamizo         ###   ########.fr       */
+/*   Updated: 2024/08/05 16:45:37 by schamizo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,34 @@ int	one_philo_case(t_philo *philo)
 	return (0);
 }
 
+void	one_philo_monitor(t_philo *philo)
+{
+	long	time;
+
+	if (philo->table->philo_num == 1)
+	{
+		ft_usleep(philo, (philo->table->time_to_die * 0.95) * 1000);
+		set_finish_dinner(philo, 1);
+		sem_wait(philo->table->write);
+		time = philo->table->time_to_die + 1;
+		printf("%ld %d %s\n", time, philo->philo_id, DIED);
+		exit (1);
+	}
+}
+
+void	check_for_death(t_philo *philo)
+{
+	long	time;
+
+	time = get_time_milli() - philo->table->initial_time;
+	set_finish_dinner(philo, 1);
+	sem_wait(philo->table->write);
+	printf("%ld %d %s\n", time, philo->philo_id, DIED);
+	close_semaphores(philo->table);
+	free_table(philo->table);
+	exit (1);
+}
+
 void	*ft_monitor(void *philosopher)
 {
 	t_philo	*philo;
@@ -34,16 +62,11 @@ void	*ft_monitor(void *philosopher)
 	philo = (t_philo *)philosopher;
 	time_die = philo->table->time_to_die;
 	max_eat = philo->table->must_eat;
+	one_philo_monitor(philo);
 	while (check_finish_dinner(philo) == 0)
 	{
 		if ((get_time_milli() - check_last_eat(philo)) > time_die)
-		{
-			ft_printing(philo, DIE);
-			set_finish_dinner(philo, 1);
-			close_semaphores(philo->table);
-			free_table(philo->table);
-			exit (1);
-		}
+			check_for_death(philo);
 		if (max_eat != -1 && max_eat <= check_if_full(philo))
 		{
 			set_finish_dinner(philo, 2);

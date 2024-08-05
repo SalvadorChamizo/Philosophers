@@ -6,7 +6,7 @@
 /*   By: schamizo <schamizo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 12:29:10 by schamizo          #+#    #+#             */
-/*   Updated: 2024/08/05 12:11:45 by schamizo         ###   ########.fr       */
+/*   Updated: 2024/08/05 12:37:13 by schamizo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	init_table_aux(t_table *table, int *args, int argc)
 		free(args);
 		free(table->forks);
 		free(table);
-		return (NULL);
+		return ;
 	}
 	table->philo_num = args[0];
 	table->time_to_die = args[1];
