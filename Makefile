@@ -84,8 +84,9 @@ re: fclean setup $(NAME)
 setup:
 	$(shell mkdir -p ./src/obj)
 	$(shell mkdir -p ./src/obj/charge_flag_makefile)
+	$(shell mkdir -p ./bonus/src_bonus/obj)
 
-.PHONY = all clean fclean re bonus charge
+.PHONY: clean fclean re all bonus setup
 
 # Colors
 MAGENTA = \033[35;1m
